@@ -1,0 +1,17 @@
+\chapter{Metodología}
+\section{Enfoque}
+El siguiente proyecto será abordado desde un enfoque empírico-analítico por los siguientes motivos:
+\begin{itemize}
+    \item Los algoritmos de inferencia basados en modelos de aprendizaje automático serán evaluados de acuerdo con métricas basadas en definiciones matemáticas que serán definidas en el proceso.
+    \item La arquitectura tendrá un enfoque asociado al conocimiento empírico y analítico, ambas están incluidos en los siguientes aspectos: experiencia en el tema, los diseños con base a documentación y pruebas las cuales tendrán ciertos resultados cuantificables como lo son rendimiento en términos de latencia en red, tiempo de generación de resultados y otros que pueden variar de acuerdo a la arquitectura.
+\end{itemize}
+\section{Marco de trabajo}
+Definir un marco de trabajo ágil que regirá en todo el proyecto que permita la entrega continua de componentes del sistema y su integración con el resto de acuerdo a unos requisitos que evolucionaran de forma continua. 
+\section{Adquisición de archivos de audio}
+Definir el software y hardware requerido para la recolección de archivos de audio desde diferentes puntos de la ciudad teniendo en cuenta la infraestructura (Equipos, Métodos de conectividad y transferencia de datos), estado del arte y conocimiento empírico. Adicionalmente verificar bases de datos y repositorios que contengan archivos de audio (en lo posible con etiquetas que definan las fuentes que aparecen en el mismo) para la realización de pruebas que serán necesarias posteriormente para la realización de pruebas de la arquitectura y el desarrollo.
+\section{Selección de modelos de aprendizaje automático}
+Definir las métricas para la selección de modelos de aprendizaje automático por medio de una exploración matemática con base en métodos de evaluación en algoritmos de aprendizaje automático. Posteriormente con base en las métricas definidas, seleccionar los modelos que serán implementados en el sistema y adaptarlos si es necesario, para lo cual se desarrollan interfaces y estándares que garanticen la adaptación del algoritmo al software.
+\section{Arquitectura de software}
+Definir una arquitectura híbrida con base en las arquitecturas REST, publicador/subscriptor y micro servicios que permita la inferencia, el almacenamiento de audio (si es requerido) y acceso a los resultados de forma concurrente con los mínimos retardos posibles por medio de una exploración en el tema y diseños de prueba, teniendo en cuenta prácticas que permitan un desarrollo resiliente, escalable y mantenible por medio de patrones de desarrollo, patrones de arquitectura, practicas de DevOps y versionamiento semántico. Adicionalmente se plantea la aplicación de servicios en la nube y modelos serverless que hacen parte del mismo dominio. A partir de ello definir tecnologías, metodología e iniciar el desarrollo.
+\section{Desarrollo}
+Desarrollar el software de acuerdo a la arquitectura, estándares y marco de trabajo definidos anteriormente, realizando en su momento prototipos que permitan verificar la capacidad del mismo de cumplir con la funciones requeridas, integrando mejora continua, prácticas de desarrollo de calidad y pruebas que garanticen escalabilidad, calidad de código, legibilidad del código y capacidad de refactorización.
