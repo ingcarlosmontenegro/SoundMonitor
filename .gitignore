@@ -1,2 +1,4 @@
-build\*
-.vscode
+build
+.vscoded
+main.synctex(busy)
+*-eps-converted-to.pdf
