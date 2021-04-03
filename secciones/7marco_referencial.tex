@@ -188,6 +188,9 @@ A continuación se presentan las tecnologías que utilizan esta arquitectura
     \item Redis
 \end{itemize}
 
+\subsection {Apache KAFKA}
+???
+
 \subsection{DevOps}
 
 Son un conjunto de prácticas y filosofías que marchan en pro de la mejora continua y la entregas ágiles de acuerdo con Amazon AWS \cite{awsDevOps}. 
@@ -240,3 +243,80 @@ Es un conjunto de reglas definidas para el control de versiones de un software y
 Cómo asignar y cómo aumentar los números de versión. Para que este sistema funcione, tienes que declarar primero un API pública. Esto puede consistir en documentación o ser explicitado en el código mismo. De cualquier forma, es importante que esta API sea clara y precisa. Una vez que identificaste tu API pública, comunicas cambios a ella con aumentos específicos al número de versión. Considera un formato de versión del tipo X.Y.Z (Major.Minor.Patch) Los arreglos de bugs que no cambian el API incrementan el patch, los cambios y adiciones que no rompen la compatibilidad de las dependencias anteriores incrementan el minor, y los cambios que rompen la compatibilidad incrementan el major.
 
 Este tipo de prácticas permiten evitar caer en dos problemas definidos por el autor, el primero el bloqueo de versiones (no se puede actualizar una pieza de software sin tener que actualizar todos los que dependen de la misma) o promiscuidad de versiones (asumir más compatibilidad con versiones futuras de lo razonable). Las reglas así mismo están documentadas en la web oficial.
+
+\subsection{CircleCI}
+
+CircleCI \cite {circleci} es una plataforma de CI/CD en la nube para la automatización de canales. Desde la interfaz de CircleCI se pueden pueden asociar repositorios de  GitHub. La el flujo de un canal es definida en un archivo de configuración YAML.
+
+A continuación se definen algunos conceptos fundamentales para construir un canal en circleCI:
+
+\begin{itemize}
+	\item Step(Paso): Un comando que se ejecuta dentro de un trabajo.
+	\item Job(Trabajo): Conjunto de pasos que se ejecutan en una sola unidad (un contenedor, una máquina).
+	\item Workflow(Canal): Orden de los trabajos con sus respectivas reglas de ejecución.
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{bibliografia/Imagenes/job.PNG}
+	\caption{Un boceto de la configuración de un trabajo para pruebas unitarias}
+	\label{jobcircle}
+\end{figure}
+
+Un trabajo requiere un conjunto de pasos y un contenedor (donde se ejecutan todos los pasos), como se ve en la figura \ref{jobcircle} ``Test'' es un trabajo que prepara la máquina y ejecuta las pruebas unitarias. La falla o interrupción de un trabajo detiene el flujo del canal (o flujo de trabajo) y es notificado en la interfaz de circleCI y Github para evitar su integración.
+
+\begin {figure} [H]
+\centering
+\includegraphics [width=0.5\linewidth]{bibliografia/Imagenes/workflow.PNG}
+\caption{Ejemplo de un flujo de trabajo}
+\label{workflow}
+\end {figure}
+
+En la figura \ref{workflow} se define un flujo de trabajo en el cual se definen una serie de filtros y atributos para determinar el orden y los pasos por cada rama
+
+\subsubsection {Orb}
+
+CircleCI \cite {circleci} define orb como ``fragmentos de código reutilizables que ayudan a automatizar los procesos repetidos''. Orbs permite reducir los pasos y la configuración simplemente llamando a un trabajo determinado (ya definido en el orb) en el flujo de trabajo agregando solo atributos adicionales, filtros o variables de entorno si es necesario. Como resultado, los orbes reducen la complejidad en una configuración y el tiempo para implementar nuevos flujos de trabajo en un canal.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics [width=0.4\linewidth]{bibliografia/Imagenes/orbexample.PNG}
+	\caption {Ejemplo de la configuración de un orb}
+	\label{orbexample}
+\end{figure}
+
+Los orb se definen en el atributo ``orbs'' en el archivo YAML del círculo CI. Un ejemplo es el orb ``aws-ecr/build-and-push-image'' que se usa en cuando se debe construir una imagen y subirla a AWS ECR (Elastic Container Registry), como se ve en la Figura \ref{orbexample}, no es necesario crear un trabajo ni escribir ningún comando, solo se necesitan los atributos necesarios para funcionar. Sin este orb, se deben agregar pasos adicionales como la instalación de AWS CLI y todo el proceso de creación de imágenes.
+
+\subsection {IAC}
+
+Matej Arta \ v {c} et al. definir una relación entre DevOps y la infraestructura como código (IaC):
+
+\leftskip1.27cm\relax
+\rightskip1.27cm\relax
+
+DevOps promueve el uso de una noción típica de desarrollo de software, es decir, ``código fuente'', también para diseños de infraestructura, de modo que todo el conjunto de scripts, código de automatización y configuración, modelos, dependencias requeridas y parámetros de configuración operativa se pueden expresar utilizando el mismo idioma estándar. \cite{devopsiac}
+
+\leftskip0cm\relax
+\rightskip0cm\relax
+
+IaC se encarga de todas las operaciones de la infraestructura (creación, actualización y eliminación) utilizando una definición de los recursos sin la intervención de desarrolladores o miembros de operaciones, por lo que ambos solo necesitan monitorear el estado de implementación o ser notificados si fue exitoso o no.
+Terraform \cite{terraform} es una herramienta para IaC y utiliza una sintaxis para configuraciones que se llama HashiCorp Configuration Language (HCL), con esta sintaxis es posible describir la infraestructura en Amazon Web Services, Azure, Google Cloud, Kubernetes y otros proveedores.
+
+\subsubsection {Terraform}
+???
+\subsection {SonarCloud}
+???
+\subsection {AWS}
+???
+\subsubsection {ECR}
+???
+\subsubsection {S3}
+???
+\subsubsection {ECS}
+???
+\subsubsection {CloudWatch}
+???
+\subsubsection {Lambda}
+???
+\subsection {ElasticSearch}
+???
