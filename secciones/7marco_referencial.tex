@@ -303,7 +303,7 @@ IaC se encarga de todas las operaciones de la infraestructura (creación, actual
 Terraform \cite{terraform} es una herramienta para IaC y utiliza una sintaxis para configuraciones que se llama HashiCorp Configuration Language (HCL), con esta sintaxis es posible describir la infraestructura en Amazon Web Services, Azure, Google Cloud, Kubernetes y otros proveedores.
 
 \subsection {Terraform}
-\subsubsection {Recursos}
+\subsubsection {Recursos y datos}
 \subsubsection {Varibles}
 \subsubsection {Modulos}
 ???
@@ -335,3 +335,23 @@ Terraform \cite{terraform} es una herramienta para IaC y utiliza una sintaxis pa
 ???
 \subsubsection {Kibana}
 ???
+\subsection{SonarCloud}
+
+SonarCloud es una plataforma para el análisis de código que detecta problemas de calidad del código fortaleciendo la capacidad de mantenimiento, confiabilidad y seguridad del código. De acuerdo con la página web oficial SonarCloud "utiliza técnicas de última generación en análisis de código estático para encontrar problemas, y posibles problemas, en el código" \cite{sonarcloud}.
+Esta plataforma muestra el estado general del repositorio con frente a smells de código, puntos de acceso de seguridad, errores y vulnerabilidades.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{bibliografia/Imagenes/SonarCloud.png}
+	\caption{Interfaz de proyecto de sonarCloud}
+	\label{sonarOne}
+\end{figure}
+
+En la figura \ref{sonarOne} observa la interfaz general de un proyecto donde se evidencia las vulnerabilidades encontradas. SonarCloud también permite localizar con exactitud el código que esta generando problemas junto con su motivo y posible solución como se contempla la figura \ref{sonarTwo}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{bibliografia/Imagenes/Sonarbugs.png}
+	\caption{Interfaz de código de SonarCloud}
+	\label{sonarTwo}
+\end{figure}
