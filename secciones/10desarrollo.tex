@@ -1,5 +1,5 @@
 \chapter{Desarrollo}
-\section{Integración de prácticas de la cultura DevOPS al sistema de monitorio de ruido}
+\section{Integración de prácticas de la cultura DevOPS}
 \subsection{Integración continua y despliegue continuo en el SMR}
 
 Cada repositorio del Sistema NMS tiene dos ramas principales de git, Master y QA, la función de cada una es la siguiente:
@@ -30,7 +30,7 @@ Como se ilustra en la Fig. \ref{pipelines}, las ramas principales (Master y QA) 
 
 \subsubsection {Servicios de inferencia}
 
-En las Figuras \ref {pipelineA} y la Fig. \ref{pipelineB} se muestra el canal de los servicios de inferencia en circleCI, los trabajos se clasifican por etapa de la siguiente manera.
+En las Figuras \ref {pipelineA} y la Fig. \ref{pipelineB} se muestra el canal de los servicios de inferencia \cite{EstebanInferencerAdapa2020}, los trabajos se clasifican por etapa de la siguiente manera.
 
 \begin {itemize}
 	\item Test: Ejecuta pruebas unitarias y la verificación sonar de forma simultanea. Ambos pasos son requeridos para el build.
@@ -56,7 +56,7 @@ En las Figuras \ref {pipelineA} y la Fig. \ref{pipelineB} se muestra el canal de
 \subsubsection {Lambda para la publicación a Kafka}
 
 
-En la Figura \ref{pipelineLambdaProducer} se muestra el canal para la Lambda de notificación a Kafka, los trabajos se clasifican por etapa de la siguiente manera.
+En la Figura \ref{pipelineLambdaProducer} se muestra el canal para la Lambda de notificación a Kafka \cite{EstebanEventProducer2021}, los trabajos se clasifican por etapa de la siguiente manera.
 
 \begin {itemize}
 \item Build: Instala dependencias y genera un archivo ''zip´´ junto con el código que se almacena en el flujo de trabajo.
@@ -73,7 +73,7 @@ En la Figura \ref{pipelineLambdaProducer} se muestra el canal para la Lambda de 
 
 \subsubsection {Servicio de Logstash}
 
-En la Figura \ref{pipelineKafkaLogstash} se ilustra el canal para el servicio de logstash, los trabajos se clasifican por etapa de la siguiente manera.
+En la Figura \ref{pipelineKafkaLogstash} se ilustra el canal para el servicio de logstash \ref{EstebanLogstash2021}, los trabajos se clasifican por etapa de la siguiente manera.
 
 \begin {itemize}
 \item Build: Se prepara la imagen para subirse a AWS ECR.
@@ -85,9 +85,29 @@ En la Figura \ref{pipelineKafkaLogstash} se ilustra el canal para el servicio de
 	\includegraphics[width=1\linewidth]{bibliografia/Imagenes/kafkaLogstashPipeline.png}
 	\caption {Canalización del servicio Logstash}
 	\label {pipelineKafkaLogstash}
-	\end {figure}
+\end {figure}
+	
+\subsubsection {Reutilización de variables de entorno con contextos}
 
-\subsection{Proveedor de terraform y backend}
+Durante los despliegues (Por medio de orb o terraform), se utilizan las mismas variables de entorno por lo que no hay necesidad de repetirlas en cada proyecto, por el contrario se definen contextos.
+
+\begin{itemize}
+	\item TerraformContext: Utilizado para todos los canales que utilicen terraform para su despliegue. Se definen todas las llaves de AWS. 
+	\item IACTerraformInferencer: Utilizado en todos los proyectos de los servicios de inferencia, donde se definen variables de la definición de tarea y variables de Kafka. 
+\end{itemize}
+
+En la \ref{circlecontext} se ilustra la definición de contextos para el flujo de trabajo del servicio de infererencia ADAPA, en la cual como puede observarse se definen más de un contexto
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{bibliografia/Imagenes/contextos.png}
+	\caption {Definición de contextos}
+	\label {circlecontext}
+\end {figure}
+
+\subsection{IAC con Terraform}
+
+\subsubsection{Configuración del proveedor y backend}
 
 Los proveedores son ``plugins que implementan tipos de recursos'' \cite{terraform}, permiten el uso de terraform con un proveedor en la nube. En el SMR se utiliza el plugin de AWS.
 
@@ -139,6 +159,17 @@ La figura \ref{ecsprovide} muestra la definición de un servicio utilizando terr
 	\label{circleCITerraform}
 \end{figure}
 
+\subsubsection{Usando módulos para la definición de infraestructura común}
 
+En el SMR los servicios de inferencia (ADAPA \cite{EstebanInferencerAdapa2020} y YAMNET \cite{EstebanYAMNET2021}) cuentan con la misma infraestructura por lo que no es necesario definirla en cada repositorio (lo cual lleva a la repetición de código). Para ello se utilizan módulos cuya fuente se encuentra en un repositorio \cite{EstebanInferencerCommon2021} en donde están definidas todas las entidades utilizadas por estos servicios.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{bibliografia/Imagenes/moduleInferencer.png}
+	\caption{Modulo para servicios de inferencia}
+	\label{moduleTerraform}
+\end{figure}
+
+En la figura \ref{moduleTerraform} se define un modulo en el servicio de inferencia de ADAPA el cual recupera las entidades del repositorio definido en el atributo ``source''.
 
 
